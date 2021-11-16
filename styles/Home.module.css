@@ -12,6 +12,11 @@
   align-items: center;
 }
 
+.main a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
 .footer {
   display: flex;
   flex: 1;
