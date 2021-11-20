@@ -3,6 +3,10 @@ import React, { ReactNode} from "react";
 import { Form, Input, Button, Checkbox, Space, PageHeader, Menu, Card, Tabs } from 'antd';
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { useRouter } from "next/dist/client/router";
+import fetch from '../../services/fetch.service'
+import apis from '../../services/api.service'
+
+import FormBuilder from 'antd-form-builder'
 
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
@@ -18,8 +22,8 @@ type IFormInput = {
     uid: string
     type: 'text' | 'number' | 'checkbox'
     label: string
+    required:boolean
     placeholder?: string
-    render: (context:Map<string, undefined>, self: IFormInput) => ReactNode
 }
 
 const tailFormItemLayout = {
@@ -35,81 +39,57 @@ const tailFormItemLayout = {
     },
 };
 
+
+const CustomInput: React.FC<{self:IFormInput}> = ({self}) => {
+    return (
+    
+        <Form.Item
+            label={self.label}
+            valuePropName={'input_' + self.uid}
+            name={'input_'+self.uid}
+            rules={[{ required: self.required, message: 'Field require!' }]}
+            {...tailFormItemLayout}
+        >
+            <Input type={self.type} name={'input_'+self.uid} placeholder={self.placeholder}/>
+            
+        </Form.Item>
+    
+
+    )
+}
+
 const JobTemplate: NextPage = () => {
 
     const router = useRouter()
 
-    const inputFields: Array<IFormInput> = [
-        {
-            uid: '1',
-            type: 'text',
-            placeholder: 'username',
-            label: 'Username',
-            render: (context, self) => {
-                return (
-                    <Form.Item  
-                        label={self.label}
-                        name={self.uid}
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                )
-            }
-        },
-        {
-            uid: '2',
-            type: 'number',
-            placeholder: 'age',
-            label: 'Age',
-            render: (context, self) => {
-                return (
-                    <Form.Item  
-                        label={self.label}
-                        name={self.uid}
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <Input type='number' />
-                    </Form.Item>
-                        
-                )
-            }
-        },
-        {
-            uid: '3',
-            type: 'checkbox',
-            label: 'Remember me',
-            render: (context, self) => {
-                return (
-                    <Form.Item
-                    name="agreement"
-                    valuePropName="checked"
-                    {...tailFormItemLayout}
-                >
-                    <Checkbox>{self.label}</Checkbox>
-                </Form.Item>
-                )
-            }
-        }
-    ]
+    const [inputFields, setInputFields] = React.useState<Array<IFormInput>>([])
+    
+    React.useEffect(() => {
+        fetch(apis.GET.jobTemplate).then(res => res.json()).then(res => {
+            console.log(res)
+            setInputFields(res.fields)
+        })
+    }, []);
 
     const [form] = Form.useForm();
 
 
     const actionHandler = (event: React.MouseEvent<HTMLElement, MouseEvent>, action: IAction) => {
         event.preventDefault()
-        console.log(form.getFieldsValue())
+        console.log(form.getFieldsValue()['input_3'].target.checked)
+        // fetch('http://127.0.0.1:3000/api/job-templates').then(res => res.json()).then(res => {
+        //     console.log(res)
+        // })
+        
+        // .catch(error => {
+        //     // console.log(error)
+        // })
     }
 
     const actions: Array<IAction> = [
         {
             uid: '1',
             name: 'Create Template',
-            chick: actionHandler
-        },
-        {
-            uid: '2',
-            name: 'Activate Template',
             chick: actionHandler
         }
     ]
@@ -164,15 +144,15 @@ const JobTemplate: NextPage = () => {
                 <section>
                 <Form
                     name="basic"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
+                    labelCol={{ span: 4 }}
+                    wrapperCol={{ span: 14 }}
                     form={form}
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    {inputFields.map(inputField => (<div key={inputField.uid}>{inputField.render(context, inputField)}</div>))}
+                    {inputFields.map(inputField => (<div key={inputField.uid}>{<CustomInput self={inputField}/>}</div>))}
                     
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Space>
