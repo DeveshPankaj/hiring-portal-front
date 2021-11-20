@@ -133,13 +133,13 @@ const JobTemplate: NextPage = () => {
               }
         /> */}
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-        <Menu.Item key="home" icon={<MailOutlined />}>
-          Home
-        </Menu.Item>
-        <Menu.Item key="details" disabled icon={<AppstoreOutlined />}>
-          Details
-        </Menu.Item>
-      </Menu>
+            <Menu.Item key="home" icon={<MailOutlined />}>
+            Home
+            </Menu.Item>
+            <Menu.Item key="details" disabled icon={<AppstoreOutlined />}>
+            Details
+            </Menu.Item>
+        </Menu>
             <Card>                
                 <section>
                 <Form

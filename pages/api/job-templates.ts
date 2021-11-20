@@ -19,24 +19,20 @@ export default function handler(req: NextApiRequest,res: NextApiResponse<Data>) 
         uid: '123-456',
         name: 'IT department',
         fields: [
+            { key: 'name.first', label: 'First Name', required: true },
+            { key: 'name.last', label: 'Last Name', required: true },
+            { key: 'gender', label: 'Gender', widget: 'radio-group', options: ['Male', 'Female'],   required: true  },
             {
-                uid: '1',
-                type: 'text',
-                placeholder: 'username',
-                label: 'Username',
+            key: 'dateOfBirth',
+            label: 'Date of Birth',
+            widget: 'date-picker',
+            // viewWidget: DateView,
             },
-            {
-                uid: '2',
-                type: 'number',
-                placeholder: 'age',
-                label: 'Age',
-            },
-            {
-                uid: '3',
-                type: 'checkbox',
-                label: 'Remember me',
-                placeholder: 'check'
-            }
+            { key: 'email', label: 'Email' },
+            { key: 'phone', label: 'Phone' },
+            { key: 'address', label: 'Address', colSpan: 2 },
+            { key: 'city', label: 'City' },
+            { key: 'zipCode', label: 'Zip Code' },
         ]
     })
 }

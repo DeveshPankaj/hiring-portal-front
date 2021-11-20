@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -16,21 +17,21 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           {/* Go ahead -- */}
           Don't break your screen {' '}
-            <a>
+            <Link href='#'>
               yet!
              {/* hold your breath!! */}
-            </a>
+            </Link>
         </h1>
 
         <p className={styles.description}>
           Checkout available actions {' '}
-          <a href="/job-template">here!</a>
+          <Link href="/job-template">here!</Link>
           {/* <code className={styles.code}>here!</code> */}
         </p>
       </main>
 
-      <footer className={styles.footer}>
-        {/* <a
+      {/* <footer className={styles.footer}>
+        <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
@@ -39,8 +40,8 @@ const Home: NextPage = () => {
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
-        </a> */}
-      </footer>
+        </a> 
+      </footer> */}
     </div>
   )
 }
