@@ -1,5 +1,5 @@
 import Page from "./dynamic-form";
-import JobTemplate from "./job-template";
+import JobTemplate from "./template";
 
 
 export default Page

@@ -30,7 +30,9 @@ export default function handler(req: NextApiRequest,res: NextApiResponse<Data>) 
             },
             { key: 'email', label: 'Email' },
             { key: 'phone', label: 'Phone' },
-            { key: 'address', label: 'Address', colSpan: 2 },
+            { key: 'address', label: 'Address', 
+                // colSpan: 2 
+            },
             { key: 'city', label: 'City' },
             { key: 'zipCode', label: 'Zip Code' },
         ]

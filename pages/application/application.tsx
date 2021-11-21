@@ -1,14 +1,45 @@
 import React, { useCallback, useState } from 'react'
-import { Form, Button, Modal, Menu } from 'antd'
+import { Form, Button, Modal, Menu, List, Avatar, Card, Divider, Table} from 'antd'
 import moment from 'moment'
 import FormBuilder from 'antd-form-builder'
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { NextPage } from 'next'
 import apis from '../../services/api.service'
 
+const dataSource = [
+  {
+    key: '1',
+    name: 'Mike',
+    age: 32,
+    address: '10 Downing Street',
+  },
+  {
+    key: '2',
+    name: 'John',
+    age: 42,
+    address: '10 Downing Street',
+  },
+];
 
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+];
 const DateView = ({ value }: {value: any}) => value.format('MMM Do YYYY')
-const Page: NextPage = () => {
+const Application: NextPage = () => {
   const [form] = Form.useForm()
   const [viewMode, setViewMode] = useState(true)
   const [pending, setPending] = useState(false)
@@ -73,7 +104,7 @@ const Page: NextPage = () => {
     setCurrent(e.key)
 };
   return (
-    <div>
+    <div style={{padding: '0 min(5rem, 10%)'}}>
         {/* <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
             <Menu.Item key="home" icon={<MailOutlined />}>
             Home
@@ -83,7 +114,6 @@ const Page: NextPage = () => {
             </Menu.Item>
         </Menu> */}
 
-        <div style={{padding: '0 4rem'}}>
         <Form layout="horizontal" form={form} onFinish={handleFinish} style={{}}>
         <h1 style={{ height: '40px', fontSize: '16px', marginTop: '20px', color: '#888' }}>
           {template?.name}
@@ -111,10 +141,9 @@ const Page: NextPage = () => {
           </Form.Item>
         )}
       </Form>
-        </div>
-      
+   
     </div>
   )
 }
 
-export default Page
+export default Application

@@ -24,8 +24,14 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Checkout available actions {' '}
-          <Link href="/job-template">here!</Link>
+          Checkout new job template builder {' '}
+          <Link href="/template">here!</Link>
+          {/* <code className={styles.code}>here!</code> */}
+        </p>
+
+        <p className={styles.description}>
+          Already applied? Track Your Application {' '}
+          <Link href="/application">here!</Link>
           {/* <code className={styles.code}>here!</code> */}
         </p>
       </main>
